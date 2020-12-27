@@ -1,0 +1,12 @@
+{
+  "name": "beadando",
+  "displayName": "beadando",
+  "expo": {
+    "name": "beadando",
+    "slug": "beadando",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
