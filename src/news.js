@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import {View, Text, Image, ActivityIndicator, Button, TouchableHighlight} from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
+import { useFavourites } from './hooks/useFavourite'
 
 const News = ({title}) => {
 
     const [news, setNews] = useState([])
     const [index, setIndex] = useState(0)
-    const [favourites, setFavourites] = useState([])
+    const {favourites, add, remove} = useFavourites()
 
     const load = async () => {
         const response = await fetch(
-            'http://newsapi.org/v2/top-headlines?country=us&apiKey=d167ec19db15431bb6dc5b24673a59cd'
+            'http://newsapi.org/v2/top-headlines?country=hu&apiKey=d167ec19db15431bb6dc5b24673a59cd'
         )
         const data = await response.json()
         setNews(data.articles)
@@ -29,14 +30,13 @@ const News = ({title}) => {
     }
 
     const favourite = () =>{
-        if(!favourites.includes(news[index])){
-        setFavourites([...favourites, news[index]])
-    }
+        const item = news[index]
+        add(item)
     }
 
     const unfavourite = () => {
-       const filtered = favourites.filter( ( favourite )=>favourite !== news[index] )
-       setFavourites(filtered)
+        const item = news[index]
+       remove(item)
     }
 
     const renderItem = ({item}) => (
