@@ -4,9 +4,10 @@ import { StyleSheet, Text, SafeAreaView } from 'react-native';
 
 import News from './src/news'
 
+
 const App = () =>(
-    <SafeAreaView>
-      <News text="text"/>
+    <SafeAreaView style= {{flex: 1}}>
+      <News title= "News"/>
       <StatusBar style="auto" />
     </SafeAreaView>
   )
