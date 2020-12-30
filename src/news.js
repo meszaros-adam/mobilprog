@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {View, Text, Image, ActivityIndicator, Button} from 'react-native'
+import {View, Text, Image, ActivityIndicator, Button, TouchableHighlight} from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 
 const News = ({title}) => {
@@ -40,7 +40,18 @@ const News = ({title}) => {
     }
 
     const renderItem = ({item}) => (
+        <TouchableHighlight 
+        underlayColor="#A2A2D0"
+        onPress={()=> console.log('hello')}
+        style={{ padding: 20,
+            textAlign: 'center' ,
+            borderTopWidth: 1,
+            borderBottomWidth: 1,
+            justifyContent: 'center',     
+        }} 
+        >
         <Text> {item.title} </Text>
+        </TouchableHighlight> 
     )
 
     
@@ -76,7 +87,11 @@ const News = ({title}) => {
         <Button title= "Next" onPress={next}/>
         </View> 
 
-        <FlatList data={favourites} renderItem={renderItem} keyExtractor={item => item.title} />
+        <FlatList 
+        style= {{width: '100%'}}
+        data={favourites} 
+        renderItem={renderItem}
+        keyExtractor={item => item.title} />
 
     </View>
     
