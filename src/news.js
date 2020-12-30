@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {View, Text, Image, ActivityIndicator, Button} from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
 
 const News = ({title}) => {
 
@@ -38,6 +39,13 @@ const News = ({title}) => {
        setFavourites(filtered)
     }
 
+    const renderItem = ({item}) => (
+        <Text> {item.title} </Text>
+    )
+
+    
+
+
     if(news.length <=0){
         return (
         <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -55,16 +63,20 @@ const News = ({title}) => {
         <Text> {news[index].title} </Text>
         <Image 
         source= {{ uri: news[index].urlToImage }} 
-        style={{width:400, height:400}}
+        style={{width:400, height:400, marginBottom: 20, marginTop: 20 }}
         resizedMode="contain"
         />
-        <Text>{JSON.stringify(favourites)}</Text>
         <View style= {{flexDirection: 'row'}}> 
         <Button title= "Prev" onPress={prev}/>
+        {favourites.includes(news[index]) ? (
+            <Button title= "Unfavourite" onPress={unfavourite}/>
+        ) : (
         <Button title= "Favourite" onPress={favourite}/>
-        <Button title= "Unfavourite" onPress={unfavourite}/>  
-        <Button title= "Next" onPress={next}/>        
+        )}        
+        <Button title= "Next" onPress={next}/>
         </View> 
+
+        <FlatList data={favourites} renderItem={renderItem} keyExtractor={item => item.title} />
 
     </View>
     
