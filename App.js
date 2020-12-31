@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+
+import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import News from './src/news'
 import Favourites from './src/favourites'
@@ -11,18 +12,19 @@ import { FavouritesProvider } from './src/utils/FavouritesContext';
 import { NewsProvider } from './src/utils/NewsContext';
 
 
-const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
 
-const App = () =>(
+
+const App = () => ( 
   <NavigationContainer>
     <SafeAreaView style= {{flex: 1}}>
       <FavouritesProvider>
       <NewsProvider>
-        <Stack.Navigator>
-        <Stack.Screen name = "News List" component = {News} />
-        <Stack.Screen name = "News View" component = {NewsView} />
-        <Stack.Screen name = "Favourites" component = {Favourites} />
-        </Stack.Navigator>
+        <Tab.Navigator>
+        <Tab.Screen name = "News List" component = {News} />
+        <Tab.Screen name = "Favourites" component = {Favourites} />
+        <Tab.Screen name = "News View" component = {NewsView} />
+        </Tab.Navigator>
         </NewsProvider>      
       </FavouritesProvider>
       <StatusBar style="auto" />

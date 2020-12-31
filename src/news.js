@@ -1,13 +1,12 @@
 
 import {View, Text, Image, ActivityIndicator, Button, TouchableHighlight} from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
 import { useFavourites } from './hooks/useFavourite'
 import { useNews } from './hooks/useNews'
 import React, { useEffect, useState } from 'react'
 import newsView from './newsView'
 
 
-const News = ({title, navigation}) => {
+const News = ({navigation}) => {
 
 
     const {favourites, add, remove} = useFavourites()
@@ -27,12 +26,11 @@ const News = ({title, navigation}) => {
     }
 
     const favourite = () =>{
-        add(actualItem())
+        add(news[index])
     }
 
     const unfavourite = () => {
-        const item = actualItem()
-       remove(item)
+       remove(news[index])
     }
 
     
@@ -46,17 +44,17 @@ const News = ({title, navigation}) => {
     }
 
 
+
     return(
     <View style={{flex:1, alignItems: 'center'}}>
-        <Text style={{fontSize: 20, marginBottom: 10}}> {title} </Text>
-        <Text>{actualItem().title} </Text>
+        <Text style={{marginBottom:20, marginTop: 30}}>{news[index].title} </Text>
 
         <TouchableHighlight
         onPress={()=> navigation.navigate ('News View')}
         underlayColor="#D3D3D3"
         >
         <Image 
-        source= {{ uri: actualItem().urlToImage }} 
+        source= {{ uri: news[index].urlToImage }} 
         style={{width:400, height:400, marginBottom: 20, marginTop: 20 }}
         resizedMode="contain"
         />
@@ -67,12 +65,11 @@ const News = ({title, navigation}) => {
         <Button title= "Next" onPress={next}/>
         </View> 
         <View style= {{flexDirection: 'row'}}> 
-        {favourites.includes(actualItem()) ? (
+        {favourites.includes(news[index]) ? (
             <Button title= "Unfavourite" onPress={unfavourite}/>
         ) : (
         <Button title= "Favourite" onPress={favourite}/>
         )}    
-        <Button title= "Favourites" onPress={ ()=> navigation.navigate ('Favourites')} />
         </View> 
     </View>    
     )

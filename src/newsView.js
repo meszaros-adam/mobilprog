@@ -9,26 +9,27 @@ import { Linking} from 'react-native'
 
 const newsView = () =>{
 
-    const {news, index, setIndex, load, actualItem} = useNews()
+    const {news,  index, setIndex, load} = useNews()
 
     return(
     <View style={{flex:1, alignItems: 'center'}}> 
-    <Text style={{fontSize: 20, marginBottom: 10, marginTop: 10}}>Author: {actualItem().author} </Text>
+    <Text style={{fontSize: 20, marginBottom: 10, marginTop: 10}}>Author: {news[index].author} </Text>
+    <Text style={{marginBottom: 10, marginTop: 10}}>{news[index].title} </Text>
     <TouchableHighlight 
-    onPress={()=> Linking.openURL(actualItem().url)}
+    onPress={()=> Linking.openURL(news[index].url)}
     underlayColor="#D3D3D3"
     >
         <Image 
-        source= {{ uri: actualItem().urlToImage }} 
+        source= {{ uri: news[index].urlToImage }} 
         style={{width:400, height:400, marginBottom: 20, marginTop: 20 }}
         resizedMode="contain"
         />
         </TouchableHighlight >
         <TouchableHighlight 
-        onPress={()=> Linking.openURL(actualItem().url)}
+        onPress={()=> Linking.openURL(news[index].url)}
         underlayColor="#D3D3D3"
         >
-        <Text style={{ marginTop: 20, marginBottom: 20}}>Content: {actualItem().content} </Text>
+        <Text style={{ marginTop: 20, marginBottom: 20}}>Content: {news[index].content} </Text>
         </TouchableHighlight>
     
     </View>
