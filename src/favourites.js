@@ -9,8 +9,8 @@ const Favourite = () => {
 
     const renderItem = ({item}) => (
         <TouchableHighlight 
-        underlayColor="#A2A2D0"
-        onPress={()=> console.log('hello')}
+        underlayColor="#D3D3D3"
+        onPress={()=>  navigation.navigate (<News View />)}
         style={{ padding: 20,
             textAlign: 'center' ,
             borderTopWidth: 1,

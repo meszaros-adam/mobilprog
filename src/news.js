@@ -4,11 +4,14 @@ import { FlatList } from 'react-native-gesture-handler'
 import { useFavourites } from './hooks/useFavourite'
 import { useNews } from './hooks/useNews'
 import React, { useEffect, useState } from 'react'
+import newsView from './newsView'
+
+
 const News = ({title, navigation}) => {
 
 
     const {favourites, add, remove} = useFavourites()
-    const {news, index, setIndex, load } = useNews()
+    const {news, index, setIndex, load, actualItem} = useNews()
 
 
     useEffect(() =>{
@@ -24,12 +27,11 @@ const News = ({title, navigation}) => {
     }
 
     const favourite = () =>{
-        const item = news[index]
-        add(item)
+        add(actualItem())
     }
 
     const unfavourite = () => {
-        const item = news[index]
+        const item = actualItem()
        remove(item)
     }
 
@@ -47,22 +49,31 @@ const News = ({title, navigation}) => {
     return(
     <View style={{flex:1, alignItems: 'center'}}>
         <Text style={{fontSize: 20, marginBottom: 10}}> {title} </Text>
-        <Text> {news[index].title} </Text>
+        <Text>{actualItem().title} </Text>
+
+        <TouchableHighlight
+        onPress={()=> navigation.navigate ('News View')}
+        underlayColor="#D3D3D3"
+        >
         <Image 
-        source= {{ uri: news[index].urlToImage }} 
+        source= {{ uri: actualItem().urlToImage }} 
         style={{width:400, height:400, marginBottom: 20, marginTop: 20 }}
         resizedMode="contain"
         />
+        </TouchableHighlight>
+
         <View style= {{flexDirection: 'row'}}> 
         <Button title= "Prev" onPress={prev}/>
-        {favourites.includes(news[index]) ? (
+        <Button title= "Next" onPress={next}/>
+        </View> 
+        <View style= {{flexDirection: 'row'}}> 
+        {favourites.includes(actualItem()) ? (
             <Button title= "Unfavourite" onPress={unfavourite}/>
         ) : (
         <Button title= "Favourite" onPress={favourite}/>
-        )}        
-        <Button title= "Next" onPress={next}/>
-        </View> 
+        )}    
         <Button title= "Favourites" onPress={ ()=> navigation.navigate ('Favourites')} />
+        </View> 
     </View>    
     )
 }

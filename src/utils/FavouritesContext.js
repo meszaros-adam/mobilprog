@@ -5,6 +5,7 @@ export const FavouritesContext = createContext ()
 export const FavouritesProvider = (props) => {
 
     const [favourites, setFavourites] = useState([])
+    const [favIndex, setFavIndex] = useState(0)
 
     const add = (item) => {
         if(!favourites.includes(item)) {

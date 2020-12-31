@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import News from './src/news'
 import Favourites from './src/favourites'
+import NewsView from './src/newsView'
 import { FavouritesProvider } from './src/utils/FavouritesContext';
 import { NewsProvider } from './src/utils/NewsContext';
 
@@ -18,7 +19,8 @@ const App = () =>(
       <FavouritesProvider>
       <NewsProvider>
         <Stack.Navigator>
-        <Stack.Screen name = "News" component = {News} />
+        <Stack.Screen name = "News List" component = {News} />
+        <Stack.Screen name = "News View" component = {NewsView} />
         <Stack.Screen name = "Favourites" component = {Favourites} />
         </Stack.Navigator>
         </NewsProvider>      
