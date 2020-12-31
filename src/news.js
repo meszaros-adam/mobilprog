@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+
 import {View, Text, Image, ActivityIndicator, Button, TouchableHighlight} from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { useFavourites } from './hooks/useFavourite'
-
-const News = ({title}) => {
+import React, { useEffect, useState } from 'react'
+const News = ({title, navigation}) => {
 
     const [news, setNews] = useState([])
     const [index, setIndex] = useState(0)
@@ -39,24 +39,7 @@ const News = ({title}) => {
        remove(item)
     }
 
-    const renderItem = ({item}) => (
-        <TouchableHighlight 
-        underlayColor="#A2A2D0"
-        onPress={()=> console.log('hello')}
-        style={{ padding: 20,
-            textAlign: 'center' ,
-            borderTopWidth: 1,
-            borderBottomWidth: 1,
-            justifyContent: 'center',     
-        }} 
-        >
-        <Text> {item.title} </Text>
-        </TouchableHighlight> 
-    )
-
     
-
-
     if(news.length <=0){
         return (
         <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -66,7 +49,6 @@ const News = ({title}) => {
         )   
     }
 
-   
 
     return(
     <View style={{flex:1, alignItems: 'center'}}>
@@ -86,15 +68,8 @@ const News = ({title}) => {
         )}        
         <Button title= "Next" onPress={next}/>
         </View> 
-
-        <FlatList 
-        style= {{width: '100%'}}
-        data={favourites} 
-        renderItem={renderItem}
-        keyExtractor={item => item.title} />
-
-    </View>
-    
+        <Button title= "Favourites" onPress={ ()=> navigation.navigate ('Favourites')} />
+    </View>    
     )
 }
 
