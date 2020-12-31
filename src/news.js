@@ -2,20 +2,14 @@
 import {View, Text, Image, ActivityIndicator, Button, TouchableHighlight} from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { useFavourites } from './hooks/useFavourite'
+import { useNews } from './hooks/useNews'
 import React, { useEffect, useState } from 'react'
 const News = ({title, navigation}) => {
 
-    const [news, setNews] = useState([])
-    const [index, setIndex] = useState(0)
-    const {favourites, add, remove} = useFavourites()
 
-    const load = async () => {
-        const response = await fetch(
-            'http://newsapi.org/v2/top-headlines?country=hu&apiKey=d167ec19db15431bb6dc5b24673a59cd'
-        )
-        const data = await response.json()
-        setNews(data.articles)
-    }
+    const {favourites, add, remove} = useFavourites()
+    const {news, index, setIndex, load } = useNews()
+
 
     useEffect(() =>{
         load()
